@@ -1,0 +1,29 @@
+//adding data dynamically to an array 
+n.push("name":variable 1,"group":variable 2)
+
+//adding on click function
+  function click(arg) {
+ 	 d3.select(this).transition()
+     .duration(750)
+     .attr("r", 30)
+     .style("fill", "lightsteelblue");
+     enteredname=arg.name;
+     d3.select("svg").remove();
+
+     makegraphof(enteredname);
+
+      }
+
+
+
+        var node = svg.selectAll(".node")
+      .data(n)
+      .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", 5)
+      .style("fill", function(d) { return color(d.group); })
+      .on("click", click)
+      .call(force.drag);
+
+
+

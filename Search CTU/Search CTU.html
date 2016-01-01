@@ -1,0 +1,184 @@
+<title>Search CTU</title>
+<center>
+<h3>Search CTU</h3>
+<h6>(c) Anup Kumar Panwar</h6>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="js.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
+<script>
+  var buslist = new Array();
+
+
+  buslist[0]=["1A", "PGI TO PGI ", "7.35 A.M to 19.35 hrs.", "20 Min ", "14/15", "15 Mkt.", "16 Mkt.", "ISBT-17", "18 Mkt.", "19 Mkt.", "27 Mkt.", "28 Mkt.", "CTU W/Shop", "Railway Station", "Railway Crossing", "HB Chowk", "Manimajra", "MM Town", "M Complex", "Railway Lights", "26 Grain Mkt.", "GGSC-26", "7-A/7-B", "7/8", "8 Mkt.", "9 Mkt.", "10 Mkt.", "11 Mkt.", "OPD PGI"];
+
+buslist[1]=["1C", "PGI TO PGI  ", "7.45 A.M. to 19.05 hrs.", "20 Min ", "OPD PGI", "Sec-11", "10", "9", "8", "8/7", "7-A/7-B", " GGC-26", "Grain Mkt.", "Railway Crossing", "M Complex", "MM Town", "ManiMajra/29", "HB Chowk", "Railway Station", "CTU W/Shop", "Sec28", "27", "19/18", "ISBT-17", "16 Mkt.", "15 Mkt.", "14 Mkt.", "14/15", "PGI"];
+
+buslist[2]=["2A", "Mani Majra to Mani Majra", "5.30 A.M. to 20.50hrs", "20 Min", "Indira Colony", "M.M. Town", "M/Complex", "Rly. Cross", "26 G. Mkt", "19/7", "18/8", "22/17", "16/10", "15/11", "14/12", "Khuda Lahora", "Sarangpur", "Barrier Dhanas", "Dadu Majra", "CTU Workshop", "25/24", "24/15", "23/16", "ISBT-17", "18/21", "19/20", "27/30", "28/29", "Elante Mall", "Colony No-4", "CTU Workshop", "Railway Station", "R/Cross", "H.B. Chowk", "Manimajra"];
+
+buslist[3]=["2B ", "PGI to I.T Park ", "7:00 A.M. to. 19:00 hrs", "30 Min ", "New OPD,PEC", "10/16/HSP", "17/16", "ISBT17", "17/18", "8/18", "7/19", "26/27", "26 Grain Mkt", "CTU w/s", "R/Station", "R / Crossing", "HB Chowk", "M.Majra", "Indra Colony", "K.Garh"];
+
+
+buslist[4]=["2C ", "Mani Majra to Mani Majra", "5:35 A.M. to 21:05hrs.", "20Min", "H. Board", "Rly. Station", "CTU Workshop", "Colony No-4", "Elante Mall", "28/29", "27/30", "19/20", "18/21", "ISBT-17", "16/23", "15/24", "24/25", "CTU Workshop", "Dadu Majra", "Dhanas", "Sarangpur Barrier", "Khuda Lahora", "14/12", "11/15", "10/16", "ISBT-17.", "8/18", "7/19", "Grain Mkt.", "Rly. Crossing", "M/Complex", "M.M Town", "Indira Colony", "M. Majra"];
+
+buslist[5]=["2D", "PGI TO IT Park ", "7:05 A.M. to 16:35 hrs.", "35 Min", "PGI TO IT Park", " New OPD 11/15", "10/16", "ISBT-17", "8/18", "26/27", "Grain Market", "CTU Workshop", "R. Station", "R. Crossing", "H Board", "Manimajra", "Indira Colony", "Kishangarh"];
+
+buslist[6]=["2E", "Manimajra to Dhanas ", "6:00 to 17:30 hrs.  ", "30 Min. ", "Housing Board", " R/Crossing", "Railway Station", "CTU workshop", "G.Mkt-26", "27/26", "19/7", "18/8", "17/22", "16/10", "New OPD", "PGI", "Khuda lohra", "S.P.Barrier", "Manimajra"];
+
+buslist[7]=["2F", "PGI to Panchkula Sec-20 ", "6.00.a.m. to 20:40 hrs.", "20Min", "O.P.D.", "16 Hosp", "16/10", "ISBT-17", "8/18", "7/19", "26/27", "Grain Mkt.", "TPT Chowk", "R/Cross", "H.B. Chowk", "11/15", "12/11", "Rally Chowk", "ISBT- Panchkula Chowk", "Sec-4", "20", "21" ];
+
+buslist[8]=["4-A", "ISBT-43 TO ISBT-43 ", "7.00 A.M. to 16.00 hrs.", "30 Min. ", "42 Mkt", "41 Mkt", "Franko", "Old Barrier (Mohali)", "Ph-6/56", "Maloya", "38west", "DMC", "Dhanas", "S.P.B", "Khuda lohra", "PGI", "11/15", "16Hospital", "ISBT17", "Aroma", "34/35", "44/43", "ISBT 43"];
+
+buslist[9]=["4-C", "ISBT-43 TO ISBT-43", "8.45 A.M to 17.45 hrs.", "30 Min. ", "43/44 Mkt.", "35/34Mkt", "Aroma", "22/17", "16Hospital", "15/11", "PGI", "Khuda lohra", "S.P.B", "Dhanas", "DMC", "38west", "Maloya", "56/6Ph", "Mohali Old Barrier", "Franko", "41Mkt", "42Mkt"];
+
+
+
+ 
+  
+
+
+
+  function getvalue()
+  {
+ 	var source=$( "#start option:selected" ).text();
+  	var destination=$( "#end option:selected" ).text();
+ 
+  
+    
+  	$('#buses').text("");
+   
+
+ 
+	$('#divbuses').slideToggle();
+	$('#divbuses').slideDown();
+
+
+	$('#buses').append('<tr><td><b>R. No. </b>&nbsp; &nbsp; </td><td><b>Route </b>&nbsp; &nbsp;</td><td><b>Time </b> &nbsp; &nbsp;</td><td><b>Freq.</b></td></tr></table>');
+
+  	
+  for(var i=0; i<=buslist.length; i++)
+  { 
+    for(var j=0; j<buslist[i].length; j++)
+    {
+      if(source.match(buslist[i][j]))
+      {       
+            for(var k=0; k<buslist[i].length; k++)
+            {
+                if(destination.match(buslist[i][k]))
+                {$('#buses').append('<tr><td><br>'+buslist[i][0]+'&nbsp; &nbsp;</td><td><br>'+buslist[i][1]+'&nbsp; &nbsp;</td><td><br>'+buslist[i][2]+'&nbsp; &nbsp;</td><td><br>'+buslist[i][3]+'</td></tr><br>');
+                }
+                else
+                {
+                  //
+                }
+            }
+        
+      }
+    }
+  }
+  
+
+
+
+
+
+}
+</script>
+
+
+
+
+<div>
+   
+    <b>&nbsp; &nbsp; &nbsp; &nbsp; Source : </b>
+    <select id="start" onchange="getvalue()">
+    	<script>
+    		var i=0, j=4, k=0, l=0, flag=0;
+    		var list_bus = new Array();
+    		list_bus[0]="";
+
+    		for(i=0; i<buslist.length; i++)
+    		{	
+    			
+    			for(j=4; j<buslist[i].length;j++)
+    			{
+    				flag=0;
+
+
+    				for(k=0; k<list_bus.length; k++)
+    				{
+    				if(buslist[i][j]==list_bus[k])
+    					{
+    						flag=1;
+    						break;
+    					}
+
+    				}
+
+
+    				if(flag==0)
+    				{
+    					list_bus[l]=buslist[i][j];
+    					l++;
+    					flag=0;
+    				}
+
+
+    				
+    			}
+    		}
+
+
+    			for(l=0; l<list_bus.length;l++)
+    			{
+    				document.write("<option>"+list_bus[l]);
+    			}
+
+
+
+
+    	</script>
+     
+    </select>
+
+   <br>
+    <b>Destination : </b>
+    <select id="end" onchange="getvalue()">
+    	<script >
+    	
+    		for(l=0; l<list_bus.length;l++)
+    			{
+    				document.write("<option>"+list_bus[l]);
+    			}
+    	</script>
+      
+    </select>
+    </div>
+    
+
+
+
+
+
+
+<div id="divbuses" >
+          <h2> Available Buses </h2>
+           <p id="buses" style="color: blue; font-size: 100%;"></p>
+
+         
+</div>
+
+
+
+</center>
+
+
+
+
+
+
+
+
