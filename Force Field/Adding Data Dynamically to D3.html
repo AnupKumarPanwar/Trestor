@@ -1,295 +1,290 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
-.node {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
-
-.link {
-  stroke: #999;
-  stroke-opacity: .6;
-}
+    .node {
+        stroke: #fff;
+        stroke-width: 1.5px;
+    }
+    
+    .link {
+        stroke: #999;
+        stroke-opacity: .6;
+    }
 
 </style>
+
 <body>
-<script src="d3.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="d3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
 
 
 
+    <script>
+        var initial = prompt("Trestor Id", "shilatest");
 
-<script>
 
 
-var initial=prompt("Trestor Id", "shilatest");
 
+        var temp = new Array();
+        var l = new Array();
+        var n = new Array();
 
+        var arraysources = new Array();
+        var arraytargets = new Array();
 
+        var n = [];
+        var l = [];
 
+        var arraysources = [];
+        var arraytargets = [];
 
+        var flag = 0;
+        var k = 0;
+        var x = 0;
+        var lastaddedat = 0;
 
-var temp= new Array();
-var l=new Array();
-var n= new Array();
+        makegraphof(initial);
 
-var arraysources=new Array();
-var arraytargets= new Array();
 
-var n=[];
-var l=[];
+        function makegraphof(enteredname)
 
-var arraysources=[];
-var arraytargets=[];
+        {
 
-var flag=0;
-var k=0;
-var x=0;
-var lastaddedat=0;
+            $.getJSON('http://manav.trestor.org/accounts?n=' + enteredname, function(Details) {
+                x = Details.Data.Accounts[0].Money;
 
-makegraphof(initial);
+            })
 
 
-function makegraphof(enteredname)
 
-{
 
-$.getJSON('http://manav.trestor.org/accounts?n='+enteredname, function(Details) 
-				{		
-					  x=Details.Data.Accounts[0].Money;
-						
-				})	
+            $.getJSON('http://trestor.org:8080/TrestorPaymentService/history/' + enteredname, function(Dots) {
+                var i = 0;
+                var j = 0;
 
 
+                for (i = 0; i < Dots.Data.Transactions.length; i++) {
 
+                    var from = Dots.Data.Transactions[i].Sources[0].Name;
+                    var to = Dots.Data.Transactions[i].Destinations[0].Name;
+                    var amount = Dots.Data.Transactions[i].Destinations[0].Value;
 
 
 
-$.getJSON('http://trestor.org:8080/TrestorPaymentService/history/'+enteredname, function(Dots) 
-{
-	var i=0;
-	var j=0;
 
+                    if (amount > 10) {
+                        temp.push({
+                            "name": from,
+                            "group": i,
+                            "distance": Math.log(amount) * 10,
+                            "amount": amount
+                        });
+                        temp.push({
+                            "name": to,
+                            "group": i,
+                            "distance": Math.log(amount) * 10,
+                            "amount": amount
+                        });
+                    } else {
+                        temp.push({
+                            "name": from,
+                            "group": i,
+                            "distance": 1,
+                            "amount": amount
+                        });
+                        temp.push({
+                            "name": to,
+                            "group": i,
+                            "distance": 1,
+                            "amount": amount
+                        });
+                    }
 
-		for(i=0; i<Dots.Data.Transactions.length; i++)
-		{
-	
-		var from = Dots.Data.Transactions[i].Sources[0].Name;
-		var to =Dots.Data.Transactions[i].Destinations[0].Name;
-		var amount =Dots.Data.Transactions[i].Destinations[0].Value;
+                }
 
 
 
+                for (i = temp.length - 1; i >= 0; i--) {
+                    flag = 0;
+                    for (j = 0; j < n.length; j++) {
+                        if (temp[i].name == n[j].name) {
+                            flag = 1;
+                            break;
+                        }
+                    }
 
-		
-		if(amount>10)
-		{
-		temp.push({"name":from,"group":i,"distance":Math.log(amount)*10,"amount":amount});
-		temp.push({"name":to ,"group":i,"distance":Math.log(amount)*10,"amount":amount});
-		}
+                    if (flag == 0) {
+                        n.push(temp[i]);
 
-		else
-		{
-			temp.push({"name":from ,"group":i,"distance":1,"amount":amount});
-			temp.push({"name":to ,"group":i,"distance":1,"amount":amount});	
-		}
+                    }
+                }
 
-		}
 
 
+                for (i = 0; i < n.length; i++) {
+                    if (n[i].name == enteredname)
 
-		for(i=temp.length-1; i>=0; i--)
-		{   
-			flag=0;
-			for(j=0; j<n.length; j++)
-			{
-				if(temp[i].name==n[j].name)
-				{
-					flag=1;
-					break;
-				}
-			}
-			
-			if(flag==0)
-			{
-				n.push(temp[i]);
+                    {
 
-			}
-		}
+                        break;
+                    }
 
 
 
-		for(i=0; i<n.length; i++)
-		{
-			if(n[i].name==enteredname)
-			
-			{ 
+                }
 
-				break;
-			}
 
-			
 
-		}
 
+                // lastaddedat=i;
 
 
 
-		// lastaddedat=i;
 
+                for (j = 0; j < n.length; j++) {
+                    for (k = lastaddedat; k < temp.length; k++) {
+                        if (n[j].name == temp[k].name) {
+                            l.push({
+                                "source": i,
+                                "target": j,
+                                "value": 2,
+                                "linklength": temp[k].distance
+                            });
+                        }
+                    }
 
+                }
 
 
-		
-		for(j=0; j<n.length; j++)
-		{
-			for(k=lastaddedat; k<temp.length; k++)
-			{
-				if(n[j].name==temp[k].name)
-				{
-					l.push({"source":i,"target":j,"value":2,"linklength":temp[k].distance});
-				}
-			}
-			
-		}
+                lastaddedat = temp.length;
 
 
-		lastaddedat=temp.length;
 
 
+                show();
 
+            })
 
-		show();				
 
-})
 
 
+            function show()
 
+            {
 
 
- 
-function show()
+                var width = 1500;
+                height = 700;
 
-{
+                var color = d3.scale.category20();
 
+                var force = d3.layout.force()
+                    .charge(-120)
+                    .size([width, height]);
 
-var width = 1500;
-    height = 700;
 
-var color = d3.scale.category20();
+                // d3.select("svg").remove();
 
-var force = d3.layout.force()
-    .charge(-120)
-    .size([width, height]);
+                var svg = d3.select("body").append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
 
 
-// d3.select("svg").remove();
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
 
+                var link = svg.selectAll(".link")
+                    .data(l)
+                    .enter().append("line")
+                    .style("stroke", function(d) {
+                        return color(d.target);
+                    })
+                    .attr("class", "link")
 
+                .style("stroke-width", function(d) {
+                    return Math.sqrt(d.value);
+                });
 
- 
+                var node = svg.selectAll(".node")
+                    .data(n)
+                    .enter().append("circle")
+                    .attr("class", "node")
+                    .attr("r", 5)
+                    .style("fill", function(d) {
+                        return color(d.group);
+                    })
+                    .on("click", click)
+                    .call(force.drag);
 
 
 
 
+                node.append("title")
+                    .text(function(d) {
+                        if (d.name == enteredname) {
+                            return "TRESTOR ID : " + d.name;
+                        } else {
+                            return "TRESTOR ID : " + d.name;
+                        }
+                    });
 
-  var link = svg.selectAll(".link")
-      .data(l)
-    .enter().append("line")
-     .style("stroke", function(d) { return color(d.target); })
-      .attr("class", "link")
-       
-      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
-  var node = svg.selectAll(".node")
-      .data(n)
-      .enter().append("circle")
-      .attr("class", "node")
-      .attr("r", 5)
-      .style("fill", function(d) { return color(d.group); })
-      .on("click", click)
-      .call(force.drag);
+                force
+                    .nodes(n)
+                    .links(l)
+                    .linkDistance(function(d) {
+                        return d.linklength;
+                    })
+                    .start();
 
 
 
 
+                force.on("tick", function() {
+                    link.attr("x1", function(d) {
+                            return d.source.x;
+                        })
+                        .attr("y1", function(d) {
+                            return d.source.y;
+                        })
+                        .attr("x2", function(d) {
+                            return d.target.x;
+                        })
+                        .attr("y2", function(d) {
+                            return d.target.y;
+                        });
 
-     
-  node.append("title")
-      .text(function(d) 
-      	{ if(d.name==enteredname)
-      		{return "TRESTOR ID : " + d.name;}
-      		else
-      		{return "TRESTOR ID : " + d.name ;} 
-      	});
+                    node.attr("cx", function(d) {
+                            return d.x;
+                        })
+                        .attr("cy", function(d) {
+                            return d.y;
+                        });
+                });
 
 
-        force
-      .nodes(n)
-      .links(l)
-      .linkDistance(function(d) { return  d.linklength; })
-      .start();
 
 
+            }
 
 
-    
 
-	
 
+            function click(arg) {
+                d3.select(this).transition()
+                    .duration(750)
+                    .attr("r", 30)
+                    .style("fill", "lightsteelblue");
+                enteredname = arg.name;
+                d3.select("svg").remove();
 
+                makegraphof(enteredname);
 
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
+            }
 
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-  });
 
- 
 
+        }
 
-}
-
-
-
-
-  function click(arg) {
- 	 d3.select(this).transition()
-     .duration(750)
-     .attr("r", 30)
-     .style("fill", "lightsteelblue");
-     enteredname=arg.name;
-     d3.select("svg").remove();
-
-     makegraphof(enteredname);
-
-      }
-
-
-
-}
-
-
-
-
-
-
-
-
-</script>
-
-
-
-
-
+    </script>
