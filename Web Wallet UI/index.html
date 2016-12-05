@@ -1,0 +1,472 @@
+
+<link href="css/bootstrap.min.css" rel="stylesheet"> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+<script src="https://cdn.ravenjs.com/1.3.0/jquery,native/raven.min.js">
+	
+	Raven.config('https://a7b6642349ac42d0bddda8387eee4374@app.getsentry.com/62204').install();
+</script>
+<script src="https://cdn.ravenjs.com/1.3.0/jquery,native/raven.min.js"></script>
+<script src="js.js"></script>        
+
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/npm.js"></script>
+			
+
+
+			<script>
+         						try
+         						{
+         								hehehehehe("123456");
+
+
+         						}
+
+         						catch(e)
+         						{
+         							Raven.captureException(e);
+         							console.log(e);
+         						}
+         						finally
+         						{
+         								Raven.captureException(e);
+         							alert("ahsdgfjhsfa");
+         						}
+         					$(document).ready(function(){
+
+         						$('.col-md-4').hide();
+         						$('.fullchat').hide();
+
+         						$('li').click(function(){
+         							$('li').removeClass("active");
+         							$(this).addClass("active");
+         							$('.col-md-4').fadeOut(500);
+         							$('.fullchat').fadeOut(500);
+         							$('.shortmsg').fadeIn();
+
+         							
+         							
+         							var selected = $(this).text();
+         							selected="#show"+selected;
+         									if(selected.match('Home'))
+         									$('#showHome').fadeIn(500);
+         									else if(selected.match('Messages'))
+         									$('#showMessages').fadeIn(500);
+         										
+
+         									
+         						});
+
+         						
+         					});
+         	</script>
+
+         	<script>
+         			var reply="";
+         			function zoommsg()
+         			{
+         				try
+         				{
+         				if(reply!=$('#chetanlastmsg').html())
+         				{
+         						reply=$('#chetanlastmsg').html();
+         						$('#chetanMessage').append(reply);
+         					
+
+         				}
+         					$('#chetanlastmsg').toggle();
+
+         				}
+
+
+
+         				catch(e) {
+
+    						Raven.captureException(e)
+						}
+
+         				
+
+         			}
+         			
+
+         			function add()
+         			{	
+
+
+
+         				try
+         			{
+         				reply=document.getElementById("chetanreplybox").value;
+         				reply="<br><b>Anup : </b>"+reply ;
+         				$('#chetanlastmsg').html(reply);
+         				$('#chetanMessage').append(reply);
+         				document.getElementById("chetanreplybox").value="";
+         				hellllll("123333");
+
+         			}
+
+
+
+
+         			catch(e)
+         				{
+    						Raven.captureException(e);
+							console.log(e);
+						}
+
+
+					
+
+         			
+         			}
+
+
+         			function itot()
+         			{	
+         				try
+         				{
+         				var input_inr=parseFloat($("#INR").val());
+         				var input_trests=parseFloat(input_inr*1.52);
+         				$("#Trests").val(input_trests);
+         				}
+
+
+         				catch(e) {
+    						Raven.captureException(e)
+						}
+
+         			}
+
+         			function ttoi()
+         			{
+         				try{
+         				var input_trests=parseFloat($("#Trests").val());
+         				var input_inr=parseFloat(input_trests/1.52);
+         				$("#INR").val(input_inr);
+         				}
+
+         				catch(e) {
+    						Raven.captureException(e)
+						}
+
+         			}
+
+
+         	</script>
+
+
+
+
+        <div class="col-sm-3 col-md-6 col-lg-10" style="position:fixed">
+
+			<div class="col-sm-3 col-md-6 col-lg-2"  style="position: absolute; left:20px; top:20px">
+				<img src="dp.jpg" height="150px" width="150px"  class="img-circle" alt="Anup">
+				<p class="text-info" style="font-size:25px; position: absolute; left:30px; top:155px ">Hello Anup</p> 
+			</div>
+			
+			
+            <div class="col-sm-3 col-md-6 col-lg-4" style="position: absolute; top:250px">
+            	<ul class="nav nav-pills nav-stacked" style="max-width: 260px;">    
+            		<li class="active"><a href="#">Home</a></li> 
+            		<li><a href="#"><span class="badge pull-right">3</span>Messages</a></li>    
+            		<li><a href="#">Transfer History</a></li>    
+            		<li><a href="#">Get Trests</a></li> 
+            		<li><a href="#">Settings</a></li>
+            		<li><a href="#">Logout</a></li>
+            	</ul> 
+         	</div>
+
+
+         </div>	
+
+
+ <div class="col-sm-3 col-md-6 col-lg-9" style="position:absolute; right:0px">
+ 	<div class="col-sm-3 col-md-6 col-lg-12" style="position: absolute; right: 0px; background-color: rgba(9, 236, 75, 0.08); color: rgba(23, 242, 9, 0.9); z-index: -1;">
+
+ 		<H4>TRESTS</H4>
+ 		
+ 		<h2>15151.99</h2>
+ 		<h4><b>INR 10000</b>
+ 		<br>
+ 		1.52 Trests/INR</h4>
+ 	</div>
+
+
+
+ 	<div class="col-sm-3 col-md-6 col-lg-12" style="position: absolute; right: -500px;  color: rgba(23, 242, 9, 0.9); z-index: -1;">
+ 		<input type="text" class="form-control" placeholder="Trestor ID" style="width:400px" id="tID" required>
+		<table>
+ 				<td><input type="text" class="form-control" placeholder="INR" id="INR" style="width:200px"  onblur="itot();" required> </td>
+ 				<td><input type="text" class="form-control" placeholder="Trests" id="Trests"  style="width:200px" onblur="ttoi();" required> </td>
+ 				
+ 			<tr>
+
+ 				<td><center><br><button type="button" class="btn btn-danger">Send Trests</button></center></td>
+ 				<td><center><br><button type="button" class="btn btn-success">Recieve Trests</button></center></td>
+ 			</tr>
+ 		</table>
+ 			
+
+ 		
+ 	</div>
+
+ 	
+ 	<!-- ________________________________HOME_______________________________________________ -->
+
+
+ 	<div class="col-sm-3 col-md-4 col-lg-12" style="position: absolute; height:100%; right: 0px; top:180px; " id="showHome">
+
+ 		<p style="color:black; font-size:20px">
+ 		Name : Anup Kumar Panwar <br>
+ 		Trestor ID : Anup<br>
+ 		Phone No : 8968894728<br>
+ 		E-mail : mylnext@gmail.com<br>
+ 		Joined Trestor On : 15-11-1997<br>
+ 		Public Key :<br>
+ 		Private Key : <br>
+ 		</p>
+ 	</div>
+
+
+
+
+<!-- _____________________________________________________________Messages____________________________________ -->
+
+ 		<div class="col-sm-3 col-md-4 col-lg-12" style="position: absolute; height:100%; right: 0px; top:180px; " id="showMessages">
+
+ 				<div class="table-responsive">    
+ 				<table class="table"> 
+ 						
+ 						<tr>
+ 								
+ 								<td>
+ 										
+ 										<div class="col-sm-3 col-md-6 col-lg-2">
+										<img src="photo.jpg" height="50px" width="50px"  class="img-circle" alt="Anup">
+										</div>
+								</td>
+
+								<td>
+										<a href="#" onclick="  $('#chetanMessage, #chetanreply').toggle(500); zoommsg();">
+
+										<p class="fullchat" id="chetanMessage">
+										<b>Chetan : </b>Hi<br>
+										<b>Anup : </b>Hello<br>
+										<b>Chetan : </b>How are u?<br>
+										<b>Anup : </b>I'm Fine<br>
+										<b>Chetan : </b>You Live in Sector 31...Right??<br>
+										<b>Anup : </b>Yup, What Happened??<br>
+										<b>Chetan : </b>Anup ...Please Buy buy an android development book for me then ...from Mahindra Book depot<br>
+										<b>Anup : </b>Okay..okay<br>
+										</p>
+										
+										<p class="shortmsg" id="chetanlastmsg">
+										<b>Chetan : </b>I'm  Sending You 500 Trests...
+										</p>
+										</a>
+										
+										
+										<form onsubmit="add()" class="fullchat" id="chetanreply">
+											<b>Anup : </b>
+											 
+											 		<input type="text" class="form-control" placeholder="Text input" id="chetanreplybox" required> 
+											 </form>
+										</p>
+
+
+										
+										
+										
+
+								</td>
+
+								<td>
+										15/12/2015<br>
+										1:30 PM
+								</td>
+								
+						</tr>
+					
+
+						<tr>
+ 								
+ 								<td>
+ 										
+ 										<div class="col-sm-3 col-md-6 col-lg-2">
+										<img src="a.jpg" height="50px" width="50px"  class="img-circle" alt="Anup">
+										</div>
+								</td>
+
+								<td>
+										<a href="#">
+										<p class="shortmsg" id="jalaludinlastmsg">
+										<B>Jalaludin : </B>I want to order 2 books...
+										</p>
+										</a>
+										
+								</td>
+
+								<td>
+										14/12/2015<br>
+										2:30 PM
+								</td>
+								
+						</tr>
+
+
+
+
+
+						<tr>
+ 								
+ 								<td>
+ 										
+ 										<div class="col-sm-3 col-md-6 col-lg-2">
+										<img src="b.jpg" height="50px" width="50px"  class="img-circle" alt="Anup">
+										</div>
+								</td>
+
+								<td>
+										<a href="#">
+										<p class="shortmsg" id="pankajlastmsg">
+										<B>Pankaj Udas : </B>Bro Trestor Account Recharge Kar...
+										</p></a>
+										
+								</td>
+
+								<td>
+										16/12/2015<br>
+										5:30 AM
+								</td>
+								
+						</tr>
+
+
+
+
+
+						<tr>
+ 								
+ 								<td>
+ 										
+ 										<div class="col-sm-3 col-md-6 col-lg-2">
+										<img src="c.jpg" height="50px" width="50px"  class="img-circle" alt="Anup">
+										</div>
+								</td>
+
+								<td>
+										<a href="#">
+										<p class="shortmsg" id="chiraglastmsg">
+										<B>Chirag : </B>Hello Anup, I've Signed up...
+										</p>
+										</a>
+										
+								</td>
+
+								<td>
+										12/12/2015<br>
+										6:30 AM
+								</td>
+								
+						</tr>
+
+
+
+						<tr>
+ 								
+ 								<td>
+ 										
+ 										<div class="col-sm-3 col-md-6 col-lg-2">
+										<img src="d.jpg" height="50px" width="50px"  class="img-circle" alt="Anup">
+										</div>
+								</td>
+
+								<td>
+										<a href="#">
+										<p class="shortmsg" id="chaturlastmsg">
+										<B>Chatur : </B>Lets Go for a movie, 1 ticket costs 300 trests...
+										</p></a>
+										
+								</td>
+
+								<td>
+										12/12/2015<br>
+										6:30 AM
+								</td>
+								
+						</tr>
+
+
+
+ 				</table> 
+ 				</div>  
+
+
+ 						
+
+ 	</div>
+
+
+
+
+ 			
+ 				
+								
+
+ 	</div>
+
+
+ 	
+
+
+
+
+
+
+
+ </div>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+   	<button  class="btn dropdown-toggle" id="dropdownMenu1"  style="background-color: rgba(21, 195, 54, 0.9); color: rgb(255, 255, 255); position:fixed; right:100px; bottom:30px" onclick="$('#online').toggle(300);">     Online Friends      
+   	<span class="caret"></span>    
+   	</button>  
+   	
+   	<div   style="position: fixed; right: 100px; bottom: 65px; width: 130px; background-color: rgb(44, 201, 74); color: white;" id="online" hidden>
+   Anup<br>
+   Chetan<br>
+   Saurabh<br>
+   	</div>
+
+  
+
+<div style="position:fixed; bottom:-20px; width:100%">
+		<div class="progress progress-striped active">   
+		 <div class="progress-bar progress-bar-success" role="progressbar"        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"        style="width:100%">      
+		  <span><b>Connected : 192.168.55.42</b></span>  
+		   </div>
+		 </div> 
+</div>
+
+  
+
+
+
+
+
+
